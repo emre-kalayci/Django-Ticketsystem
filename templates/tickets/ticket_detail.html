@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% load ticket_tags i18n %}
+{% block title %}{{ ticket.display_id }} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header ticket-page-header">
+        <div>
+            <a class="back-link" href="{% url 'ticket-list' %}">← {% translate "Tickets" %}</a>
+            <div class="ticket-title-line">
+                <span class="ticket-id">{{ ticket.display_id }}</span>
+                <h1>{{ ticket.subject }}</h1>
+            </div>
+            <div class="meta-line">
+                <span class="status status-{{ ticket.status }}"><i></i>{{ ticket.get_status_display }}</span>
+                <span class="priority priority-{{ ticket.priority }}"><i></i>{{ ticket.get_priority_display }}</span>
+                <span>{{ ticket.category.name }}</span>
+            </div>
+        </div>
+        {% if request.user.is_administrator %}
+            <form method="post"
+                  action="{% url 'ticket-delete' ticket.number %}"
+                  data-confirm="{% translate 'Permanently delete this ticket? This cannot be undone.' %}">
+                {% csrf_token %}
+                <input type="hidden" name="confirmation" value="{{ ticket.display_id }}">
+                <button class="button danger" type="submit">{% translate "Delete ticket" %}</button>
+            </form>
+        {% endif %}
+    </header>
+    <div class="ticket-layout">
+        <div class="ticket-primary">
+            <section class="panel description-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">{% translate "Original request" %}</p>
+                        <h2>{% translate "Description" %}</h2>
+                    </div>
+                    {% if request.user.is_support %}
+                        <button type="button"
+                                class="icon-button"
+                                data-description-toggle
+                                aria-label="{% translate 'Edit description' %}"
+                                title="{% translate 'Edit description' %}">
+                            <span data-edit-icon>
+                                <svg aria-hidden="true" viewBox="0 0 24 24">
+                                    <path d="M12 20h9" />
+                                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                                </svg>
+                            </span>
+                            <span data-view-icon hidden>
+                                <svg aria-hidden="true" viewBox="0 0 24 24">
+                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </span>
+                        </button>
+                    {% endif %}
+                </div>
+                <div data-description-view class="rich-output">{{ ticket.description|safe_rich_text }}</div>
+                {% if request.user.is_support %}
+                    <form id="ticket-update-form"
+                          method="post"
+                          enctype="multipart/form-data"
+                          action="{% url 'ticket-update' ticket.number %}"
+                          class="form-stack ticket-edit-form"
+                          data-description-edit
+                          data-rich-form
+                          hidden>
+                        {% csrf_token %}
+                        {% include "partials/form_errors.html" with form=update_form %}
+                        <label>{% translate "Subject" %}{{ update_form.subject }}</label>
+                        {{ update_form.subject.errors }}
+                        <label>{% translate "Description" %}</label>
+                        {% include "partials/rich_editor.html" with field=update_form.description upload_ids_field=update_form.temporary_upload_ids %}
+                        <label>{% translate "Additional attachments" %}{{ update_form.attachments }}</label>
+                        {{ update_form.attachments.errors }}
+                        <div class="form-actions">
+                            <button type="button" class="button secondary" data-description-cancel>{% translate "Cancel" %}</button>
+                            <button class="button primary" type="submit">{% translate "Save ticket" %}</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </section>
+            {% if ticket_attachments %}
+                <section class="panel">
+                    <div class="section-heading">
+                        <h2>{% translate "Request attachments" %}</h2>
+                    </div>
+                    <ul class="attachment-list">
+                        {% for attachment in ticket_attachments %}
+                            <li>
+                                <a href="{% url 'attachment-file' attachment.id %}"
+                                   target="_blank"
+                                   rel="noopener">
+                                    <span>↗</span><strong>{{ attachment.original_name }}</strong><small>{{ attachment.size|filesizeformat }}</small>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endif %}
+            <section class="panel conversation-panel" id="conversation">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">{% translate "Activity" %}</p>
+                        <h2>{% translate "Conversation" %}</h2>
+                    </div>
+                </div>
+                <div class="timeline">
+                    {% for item in timeline %}
+                        {% if item.kind == 'message' %}
+                            <article class="timeline-message {% if item.message.visibility == 'internal' %}internal-note{% endif %}">
+                                <div class="timeline-avatar">
+                                    {% if item.message.author.avatar %}
+                                        <img src="{% url 'avatar-file' item.message.author.id %}" alt="">
+                                    {% else %}
+                                        <span class="avatar">{{ item.message.author|initials }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="timeline-card">
+                                    <header>
+                                        <div>
+                                            <strong>{{ item.message.author.full_name }}</strong>
+                                            {% if item.message.visibility == 'internal' %}
+                                                <span class="note-badge">{% translate "Internal note" %}</span>
+                                            {% endif %}
+                                        </div>
+                                        <time datetime="{{ item.message.created_at|date:'c' }}">{{ item.message.created_at|date:"M j, Y H:i" }}</time>
+                                    </header>
+                                    <div class="rich-output">{{ item.message.body|safe_rich_text }}</div>
+                                    {% if item.message.attachments.all %}
+                                        <ul class="attachment-list compact">
+                                            {% for attachment in item.message.attachments.all %}
+                                                <li><a href="{% url 'attachment-file' attachment.id %}"
+   target="_blank"
+   rel="noopener">↗ {{ attachment.original_name }} <small>{{ attachment.size|filesizeformat }}</small></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if request.user.is_administrator and not item.message.is_redacted %}
+                                        <footer>
+                                            <form method="post"
+                                                  action="{% url 'ticket-message-redact' ticket.number item.message.id %}"
+                                                  data-confirm="{% translate 'Redact this message and delete its attachments?' %}">
+                                                {% csrf_token %}
+                                                <button class="text-button danger-text" type="submit">{% translate "Redact" %}</button>
+                                            </form>
+                                        </footer>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        {% else %}
+                            <div class="timeline-event">
+                                <span class="event-dot"></span>
+                                <p><strong>{% if item.event.actor %}{{ item.event.actor.full_name }}{% else %}{% translate "System" %}{% endif %}</strong> {{ item.event|event_description }}</p>
+                                <time>{{ item.event.created_at|date:"M j, H:i" }}</time>
+                            </div>
+                        {% endif %}
+                    {% empty %}
+                        <div class="empty-state small-empty">{% translate "No conversation yet." %}</div>
+                    {% endfor %}
+                </div>
+                <form method="post"
+                      enctype="multipart/form-data"
+                      action="{% url 'ticket-message-create' ticket.number %}"
+                      class="reply-composer form-stack"
+                      data-rich-form>
+                    {% csrf_token %}
+                    {% include "partials/form_errors.html" with form=message_form %}
+                    {% if message_form.visibility %}
+                        <div class="reply-mode">
+                            <label>{% translate "Message type" %}{{ message_form.visibility }}</label>
+                            <p class="muted">{% translate "Public replies notify the requester. Internal notes remain staff-only." %}</p>
+                        </div>
+                    {% endif %}
+                    <label class="sr-only">{% translate "Message" %}</label>
+                    {% include "partials/rich_editor.html" with field=message_form.body upload_ids_field=message_form.temporary_upload_ids %}
+                    <label>{% translate "Attachments" %}{{ message_form.attachments }}</label>
+                    {{ message_form.attachments.errors }}
+                    <div class="form-actions">
+                        <button class="button primary" type="submit">{% translate "Add reply" %}</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <aside class="ticket-sidebar">
+            {% if request.user.is_support %}
+                <section class="panel detail-card detail-edit-card"
+                         data-description-edit-sidebar
+                         hidden>
+                    <h2>{% translate "Details" %}</h2>
+                    <div class="detail-form">
+                        <label>{% translate "Status" %}{{ update_form.status }}</label>
+                        {{ update_form.status.errors }}
+                        <label>{% translate "Category" %}{{ update_form.category }}</label>
+                        {{ update_form.category.errors }}
+                        {% if update_form.requester %}
+                            <label>{% translate "Requester" %}{{ update_form.requester }}</label>
+                            {{ update_form.requester.errors }}
+                        {% else %}
+                            <div class="detail-readonly">
+                                <span class="detail-label">{% translate "Requester" %}</span>
+                                <span class="person">
+                                    {% if ticket.requester.avatar %}<img src="{% url 'avatar-file' ticket.requester.id %}" alt="">{% else %}<b class="avatar tiny">{{ ticket.requester|initials }}</b>{% endif %}
+                                    {{ ticket.requester.full_name }}
+                                </span>
+                                <small>{{ ticket.requester.email }}</small>
+                            </div>
+                        {% endif %}
+                        <label>{% translate "Assignee" %}{{ update_form.assignee }}</label>
+                        {{ update_form.assignee.errors }}
+                        <label>{% translate "Priority" %}{{ update_form.priority }}</label>
+                        {{ update_form.priority.errors }}
+                        <label>{% translate "Resolution summary" %}{{ update_form.resolution_summary }}</label>
+                        {{ update_form.resolution_summary.errors }}
+                    </div>
+                </section>
+            {% endif %}
+            <section class="panel detail-card" data-description-view-sidebar>
+                <h2>{% translate "Details" %}</h2>
+                <dl>
+                    <div><dt>{% translate "Status" %}</dt><dd><span class="status status-{{ ticket.status }}"><i></i>{{ ticket.get_status_display }}</span></dd></div>
+                    <div><dt>{% translate "Category" %}</dt><dd>{{ ticket.category.name }}</dd></div>
+                    <div>
+                        <dt>{% translate "Requester" %}</dt>
+                        <dd>
+                            <span class="person">
+                                {% if ticket.requester.avatar %}<img src="{% url 'avatar-file' ticket.requester.id %}" alt="">{% else %}<b class="avatar tiny">{{ ticket.requester|initials }}</b>{% endif %}
+                                {{ ticket.requester.full_name }}
+                            </span>
+                            <small>{{ ticket.requester.email }}</small>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>{% translate "Assignee" %}</dt>
+                        <dd>
+                            {% if ticket.assignee %}
+                                <span class="person">
+                                    {% if ticket.assignee.avatar %}<img src="{% url 'avatar-file' ticket.assignee.id %}" alt="">{% else %}<b class="avatar tiny">{{ ticket.assignee|initials }}</b>{% endif %}
+                                    {{ ticket.assignee.full_name }}
+                                </span>
+                            {% else %}
+                                <span class="muted">{% translate "Unassigned" %}</span>
+                            {% endif %}
+                        </dd>
+                    </div>
+                    <div><dt>{% translate "Priority" %}</dt><dd><span class="priority priority-{{ ticket.priority }}"><i></i>{{ ticket.get_priority_display }}</span></dd></div>
+                    <div><dt>{% translate "Created" %}</dt><dd>{{ ticket.created_at|date:"M j, Y H:i" }}</dd></div>
+                    <div><dt>{% translate "Updated" %}</dt><dd>{{ ticket.updated_at|date:"M j, Y H:i" }}</dd></div>
+                    {% if ticket.resolution_summary %}<div><dt>{% translate "Resolution" %}</dt><dd>{{ ticket.resolution_summary }}</dd></div>{% endif %}
+                </dl>
+            </section>
+        </aside>
+    </div>
+{% endblock %}

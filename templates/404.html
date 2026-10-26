@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Page not found" %} · Support Portal{% endblock %}
+{% block content %}
+    <section class="panel narrow-panel error-page"><p class="eyebrow">404</p><h1>{% translate "Page not found" %}</h1><p class="muted">{% translate "This page does not exist or is not available to your account." %}</p><a class="button primary" href="{% url 'home' %}">{% translate "Return to tickets" %}</a></section>
+{% endblock %}

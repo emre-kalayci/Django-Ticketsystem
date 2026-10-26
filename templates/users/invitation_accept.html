@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Accept invitation" %} · Support Portal{% endblock %}
+{% block auth_content %}
+    <section class="auth-card"><p class="eyebrow">{{ invitation.get_role_display }} · {% translate "Invitation" %}</p><h1>{% translate "Create your account" %}</h1><p class="muted">{% translate "Invitation for" %} {{ invitation.email }}</p>
+        <form method="post" class="form-stack">{% csrf_token %}{% include "partials/form_errors.html" %}<label>{% translate "Email" %}{{ form.email }}</label>{{ form.email.errors }}<div class="form-grid"><label>{% translate "First name" %}{{ form.first_name }}</label><label>{% translate "Last name" %}{{ form.last_name }}</label></div>{{ form.first_name.errors }}{{ form.last_name.errors }}<label>{% translate "Password" %}{{ form.password }}</label>{{ form.password.errors }}<label>{% translate "Confirm password" %}{{ form.password_confirm }}</label>{{ form.password_confirm.errors }}<button class="button primary" type="submit">{% translate "Create account" %}</button></form></section>
+{% endblock %}

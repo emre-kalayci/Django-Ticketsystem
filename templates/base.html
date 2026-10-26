@@ -1,0 +1,84 @@
+{% load static ticket_tags i18n %}
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE|default:'en' }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="color-scheme" content="dark">
+        <title>{% block title %}Support Portal{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'tickets/app.css' %}">
+        <script defer src="{% static 'tickets/app.js' %}"></script>
+    </head>
+    <body class="{% if request.user.is_authenticated %}app-body{% else %}auth-body{% endif %}">
+        {% if request.user.is_authenticated %}
+            <aside class="sidebar" aria-label="{% translate 'Primary navigation' %}">
+                <a class="brand"
+                   href="{% url 'home' %}"
+                   aria-label="{% translate 'Support Portal home' %}">
+                    <span class="brand-mark">S</span><span>Support Portal</span>
+                </a>
+                <nav class="nav-list">
+                    <p class="nav-eyebrow">{% translate "Workspace" %}</p>
+                    {% for item in sidebar_navigation %}
+                        <a href="{{ item.url }}"
+                           class="nav-item {% if item.active %}active{% endif %}">
+                            <span class="nav-dot" aria-hidden="true"></span>
+                            {{ item.label }}
+                        </a>
+                    {% endfor %}
+                </nav>
+                <div class="sidebar-user" data-menu>
+                    <button type="button"
+                            class="user-trigger"
+                            data-menu-trigger
+                            aria-expanded="false">
+                        {% if request.user.avatar %}
+                            <img src="{% url 'avatar-file' request.user.id %}" alt="">
+                        {% else %}
+                            <span class="avatar">{{ request.user|initials }}</span>
+                        {% endif %}
+                        <span class="user-copy">
+                            <strong>{{ request.user.full_name }}</strong>
+                            <small>{{ request.user.get_role_display }}</small>
+                        </span>
+                        <svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="m18 15-6-6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="user-menu" data-menu-content hidden>
+                        <a href="{% url 'profile' %}">{% translate "Profile settings" %}</a>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">{% translate "Log out" %}</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+            <main class="app-main" id="main-content">
+                {% if messages %}
+                    <div class="flash-stack" aria-live="polite">
+                        {% for message in messages %}
+                            <div class="flash {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </main>
+        {% else %}
+            <main class="auth-shell">
+                <a class="brand auth-brand" href="{% url 'login' %}">
+                    <span class="brand-mark">S</span>
+                    <span>Support Portal</span>
+                </a>
+                {% if messages %}
+                    <div class="flash-stack" aria-live="polite">
+                        {% for message in messages %}
+                            <div class="flash {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% block auth_content %}{% endblock %}
+            </main>
+        {% endif %}
+    </body>
+</html>

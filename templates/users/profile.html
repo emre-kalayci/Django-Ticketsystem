@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load ticket_tags i18n %}
+{% block title %}{% translate "Profile" %} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">{% translate "Settings" %}</p>
+            <h1>{% translate "Profile" %}</h1>
+            <p class="muted">{% translate "Identity, security, avatar, and language." %}</p>
+        </div>
+    </header>
+    <section class="panel narrow-panel"><div class="profile-preview">{% if request.user.avatar %}<img src="{% url 'avatar-file' request.user.id %}" alt="Current avatar">{% else %}<span class="avatar avatar-xl">{{ request.user|initials }}</span>{% endif %}<div><strong>{{ request.user.full_name }}</strong><p>{{ request.user.email }}</p></div></div>
+        <form method="post" enctype="multipart/form-data" class="form-stack">{% csrf_token %}{% include "partials/form_errors.html" %}<div class="form-grid"><label>{% translate "First name" %}{{ form.first_name }}</label><label>{% translate "Last name" %}{{ form.last_name }}</label></div>{{ form.first_name.errors }}{{ form.last_name.errors }}<label>{% translate "Email" %}{{ form.email }}</label>{{ form.email.errors }}<label>{% translate "Language" %}{{ form.language }}</label><label>{% translate "Avatar" %}{{ form.avatar }}</label>{{ form.avatar.errors }}<label class="checkbox-label">{{ form.remove_avatar }} {% translate "Remove current avatar" %}</label><label>{% translate "New password" %} <span class="muted">({% translate "optional" %})</span>{{ form.new_password }}</label>{{ form.new_password.errors }}<button class="button primary" type="submit">{% translate "Save profile" %}</button></form></section>
+{% endblock %}

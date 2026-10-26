@@ -1,0 +1,712 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Support Portal V2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-28 05:15+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Invalid request"
+msgstr "Ungültige Anfrage"
+
+msgid ""
+"The request could not be processed. Check the submitted information and try "
+"again."
+msgstr ""
+"Die Anfrage konnte nicht verarbeitet werden. Prüfe die übermittelten Angaben "
+"und versuche es erneut."
+
+msgid "Return to tickets"
+msgstr "Zu den Tickets"
+
+msgid "Access denied"
+msgstr "Zugriff verweigert"
+
+msgid "You do not have permission to perform this action."
+msgstr "Du hast keine Berechtigung für diese Aktion."
+
+msgid "Page not found"
+msgstr "Seite nicht gefunden"
+
+msgid "This page does not exist or is not available to your account."
+msgstr "Diese Seite existiert nicht oder ist für dein Konto nicht verfügbar."
+
+msgid "Server error"
+msgstr "Serverfehler"
+
+msgid ""
+"The support portal could not complete the request. Try again in a moment."
+msgstr ""
+"Das Supportportal konnte die Anfrage nicht abschließen. Versuche es gleich "
+"erneut."
+
+msgid "Primary navigation"
+msgstr "Hauptnavigation"
+
+msgid "Support Portal home"
+msgstr "Startseite des Supportportals"
+
+msgid "Workspace"
+msgstr "Arbeitsbereich"
+
+msgid "Profile settings"
+msgstr "Profileinstellungen"
+
+msgid "Log out"
+msgstr "Abmelden"
+
+msgid "Rich text formatting"
+msgstr "Rich-Text-Formatierung"
+
+msgid "Paragraph"
+msgstr "Absatz"
+
+msgid "Heading"
+msgstr "Überschrift"
+
+msgid "Bold"
+msgstr "Fett"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Add link"
+msgstr "Link hinzufügen"
+
+msgid "Bullet list"
+msgstr "Aufzählung"
+
+msgid "Numbered list"
+msgstr "Nummerierte Liste"
+
+msgid "Task list"
+msgstr "Aufgabenliste"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
+msgid "Write here…"
+msgstr "Hier schreiben…"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Keep ticket classification simple and useful."
+msgstr "Ticket-Klassifizierung einfach und nützlich halten."
+
+msgid "Manage users"
+msgstr "Benutzer verwalten"
+
+msgid "New category"
+msgstr "Neue Kategorie"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Create"
+msgstr "Erstellen"
+
+msgid "All categories"
+msgstr "Alle Kategorien"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Category name"
+msgstr "Kategoriename"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "New ticket"
+msgstr "Neues Ticket"
+
+msgid "Tickets"
+msgstr "Tickets"
+
+msgid "Describe the issue and include anything support needs to reproduce it."
+msgstr "Beschreibe das Problem und gib alle Informationen zur Reproduktion an."
+
+msgid "Subject"
+msgstr "Betreff"
+
+msgid "Requester"
+msgstr "Anfragender"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Priority"
+msgstr "Priorität"
+
+msgid "Attachments"
+msgstr "Anhänge"
+
+msgid "PDF, PNG, JPEG, or TXT · max 10 MB each"
+msgstr "PDF, PNG, JPEG oder TXT · jeweils maximal 10 MB"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Create ticket"
+msgstr "Ticket erstellen"
+
+msgid "Permanently delete this ticket? This cannot be undone."
+msgstr ""
+"Dieses Ticket dauerhaft löschen? Dies kann nicht rückgängig gemacht werden."
+
+msgid "Delete ticket"
+msgstr "Ticket löschen"
+
+msgid "Original request"
+msgstr "Ursprüngliche Anfrage"
+
+msgid "Edit description"
+msgstr "Beschreibung bearbeiten"
+
+msgid "Additional attachments"
+msgstr "Weitere Anhänge"
+
+msgid "Save ticket"
+msgstr "Ticket speichern"
+
+msgid "Request attachments"
+msgstr "Anhänge der Anfrage"
+
+msgid "Activity"
+msgstr "Aktivität"
+
+msgid "Conversation"
+msgstr "Unterhaltung"
+
+msgid "Internal note"
+msgstr "Interne Notiz"
+
+msgid "Redact this message and delete its attachments?"
+msgstr "Diese Nachricht schwärzen und ihre Anhänge löschen?"
+
+msgid "Redact"
+msgstr "Schwärzen"
+
+msgid "System"
+msgstr "System"
+
+msgid "No conversation yet."
+msgstr "Noch keine Unterhaltung."
+
+msgid "Message type"
+msgstr "Nachrichtentyp"
+
+msgid "Public replies notify the requester. Internal notes remain staff-only."
+msgstr ""
+"Öffentliche Antworten benachrichtigen den Anfragenden. Interne Notizen "
+"bleiben nur für Support sichtbar."
+
+msgid "Message"
+msgstr "Nachricht"
+
+msgid "Add reply"
+msgstr "Antwort hinzufügen"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Assignee"
+msgstr "Bearbeiter"
+
+msgid "Resolution summary"
+msgstr "Lösungszusammenfassung"
+
+msgid "Unassigned"
+msgstr "Nicht zugewiesen"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Updated"
+msgstr "Aktualisiert"
+
+msgid "Resolution"
+msgstr "Lösung"
+
+msgid "My tickets"
+msgstr "Meine Tickets"
+
+msgid "Support portal"
+msgstr "Supportportal"
+
+msgid "Triage, assign, and resolve the global support queue."
+msgstr "Globale Support-Tickets prüfen, zuweisen und lösen."
+
+msgid "Track requests and continue conversations with support."
+msgstr "Anfragen verfolgen und mit dem Support kommunizieren."
+
+msgid "Ticket queues"
+msgstr "Ticket-Listen"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Assigned to me"
+msgstr "Mir zugewiesen"
+
+msgid "Waiting for requester"
+msgstr "Wartet auf Anfragenden"
+
+msgid "Resolved"
+msgstr "Gelöst"
+
+msgid "Search tickets"
+msgstr "Tickets suchen"
+
+msgid "Search ID, subject, or requester"
+msgstr "ID, Betreff oder Anfragenden suchen"
+
+msgid "All statuses"
+msgstr "Alle Status"
+
+msgid "All priorities"
+msgstr "Alle Prioritäten"
+
+msgid "All assignees"
+msgstr "Alle Bearbeiter"
+
+msgid "Sort"
+msgstr "Sortieren"
+
+msgid "Recently updated"
+msgstr "Zuletzt aktualisiert"
+
+msgid "Newest"
+msgstr "Neueste"
+
+msgid "Oldest"
+msgstr "Älteste"
+
+msgid "ago"
+msgstr "zuvor"
+
+msgid "No tickets here"
+msgstr "Keine Tickets vorhanden"
+
+msgid "Try another queue/filter or create a new ticket."
+msgstr "Versuche eine andere Liste oder erstelle ein neues Ticket."
+
+msgid "Pagination"
+msgstr "Seitennavigation"
+
+msgid "Previous"
+msgstr "Zurück"
+
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Seite %(current)s von %(total)s"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Users"
+msgstr "Benutzer"
+
+msgid "Invite accounts, assign roles, and control access."
+msgstr "Konten einladen, Rollen zuweisen und Zugriff steuern."
+
+msgid "Manage categories"
+msgstr "Kategorien verwalten"
+
+msgid "Invite user"
+msgstr "Benutzer einladen"
+
+msgid "Invitation links expire after 7 days."
+msgstr "Einladungslinks laufen nach 7 Tagen ab."
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Role"
+msgstr "Rolle"
+
+msgid "Send invitation"
+msgstr "Einladung senden"
+
+msgid "Accounts"
+msgstr "Konten"
+
+msgid "Search users"
+msgstr "Benutzer suchen"
+
+msgid "Search name or email"
+msgstr "Name oder E-Mail suchen"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "User"
+msgstr "Benutzer"
+
+msgid "Joined"
+msgstr "Beigetreten"
+
+msgid "Role for"
+msgstr "Rolle für"
+
+msgid "No users match this search."
+msgstr "Keine passenden Benutzer gefunden."
+
+msgid "Pending invitations"
+msgstr "Ausstehende Einladungen"
+
+msgid "Expires"
+msgstr "Läuft ab"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Resend"
+msgstr "Erneut senden"
+
+msgid "Revoke"
+msgstr "Widerrufen"
+
+msgid "No pending invitations."
+msgstr "Keine ausstehenden Einladungen."
+
+msgid "Accept invitation"
+msgstr "Einladung annehmen"
+
+msgid "Invitation"
+msgstr "Einladung"
+
+msgid "Create your account"
+msgstr "Konto erstellen"
+
+msgid "Invitation for"
+msgstr "Einladung für"
+
+msgid "First name"
+msgstr "Vorname"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Confirm password"
+msgstr "Passwort bestätigen"
+
+msgid "Create account"
+msgstr "Konto erstellen"
+
+msgid "Accept role invitation"
+msgstr "Rolleneinladung annehmen"
+
+#, python-format
+msgid "Accept the invitation to continue as %(role)s."
+msgstr "Nimm die Einladung an, um als %(role)s fortzufahren."
+
+#, python-format
+msgid "This invitation matches the signed-in account %(email)s."
+msgstr "Diese Einladung gehört zum angemeldeten Konto %(email)s."
+
+msgid "Invitation unavailable"
+msgstr "Einladung nicht verfügbar"
+
+msgid ""
+"This invitation is invalid, expired, revoked, or already used. Ask an "
+"Administrator for a new invitation."
+msgstr ""
+"Diese Einladung ist ungültig, abgelaufen, widerrufen oder bereits verwendet. "
+"Bitte einen Administrator um eine neue Einladung."
+
+msgid "Go to sign in"
+msgstr "Zur Anmeldung"
+
+msgid "Sign in"
+msgstr "Anmelden"
+
+msgid "Support workspace"
+msgstr "Support-Arbeitsbereich"
+
+msgid "Welcome back"
+msgstr "Willkommen zurück"
+
+msgid "Sign in with your invited account."
+msgstr "Melde dich mit deinem eingeladenen Konto an."
+
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+msgid "Choose password"
+msgstr "Passwort auswählen"
+
+msgid "Account recovery"
+msgstr "Kontowiederherstellung"
+
+msgid "Choose a new password"
+msgstr "Neues Passwort auswählen"
+
+msgid "New password"
+msgstr "Neues Passwort"
+
+msgid "Save password"
+msgstr "Passwort speichern"
+
+msgid "Reset link unavailable"
+msgstr "Zurücksetzungslink nicht verfügbar"
+
+msgid "This link is invalid, expired, or already used."
+msgstr "Dieser Link ist ungültig, abgelaufen oder bereits verwendet."
+
+msgid "Request another link"
+msgstr "Neuen Link anfordern"
+
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
+
+msgid "We will send a 24-hour reset link if the account exists."
+msgstr "Wenn das Konto existiert, senden wir einen 24 Stunden gültigen Link."
+
+msgid "Send reset link"
+msgstr "Zurücksetzungslink senden"
+
+msgid "Back to sign in"
+msgstr "Zurück zur Anmeldung"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Identity, security, avatar, and language."
+msgstr "Identität, Sicherheit, Avatar und Sprache."
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Remove current avatar"
+msgstr "Aktuellen Avatar entfernen"
+
+msgid "optional"
+msgstr "optional"
+
+msgid "Save profile"
+msgstr "Profil speichern"
+
+msgid "Choose a requester."
+msgstr "Wähle einen Anfragenden aus."
+
+msgid "Support access required."
+msgstr "Supportzugriff erforderlich."
+
+msgid "Assignee must be an active support user."
+msgstr "Der Bearbeiter muss ein aktiver Supportbenutzer sein."
+
+msgid "Add a resolution summary before resolving this ticket."
+msgstr "Füge eine Lösungszusammenfassung hinzu, bevor das Ticket gelöst wird."
+
+msgid "Only support staff can create internal notes."
+msgstr "Nur Supportmitarbeiter können interne Notizen erstellen."
+
+msgid "Administrator access required."
+msgstr "Administratorzugriff erforderlich."
+
+msgid "Editor uploads must be PNG or JPEG images."
+msgstr "Editor-Uploads müssen PNG- oder JPEG-Bilder sein."
+
+msgid "Temporary upload not found."
+msgstr "Temporärer Upload wurde nicht gefunden."
+
+msgid "One or more editor uploads are invalid."
+msgstr "Mindestens ein Editor-Upload ist ungültig."
+
+msgid "File must be 10 MB or smaller."
+msgstr "Die Datei darf höchstens 10 MB groß sein."
+
+msgid "File must not be empty."
+msgstr "Die Datei darf nicht leer sein."
+
+msgid "Only PDF, PNG, JPEG, and UTF-8 text files are allowed."
+msgstr "Nur PDF-, PNG-, JPEG- und UTF-8-Textdateien sind erlaubt."
+
+msgid "Enter content before saving."
+msgstr "Gib vor dem Speichern einen Inhalt ein."
+
+msgid "Uploaded image references are invalid."
+msgstr "Die Referenzen der hochgeladenen Bilder sind ungültig."
+
+msgid "New"
+msgstr "Neu"
+
+msgid "In progress"
+msgstr "In Bearbeitung"
+
+msgid "Low"
+msgstr "Niedrig"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "High"
+msgstr "Hoch"
+
+msgid "Urgent"
+msgstr "Dringend"
+
+msgid "Public reply"
+msgstr "Öffentliche Antwort"
+
+msgid "created the ticket"
+msgstr "hat das Ticket erstellt"
+
+msgid "updated ticket content"
+msgstr "hat den Ticketinhalt aktualisiert"
+
+msgid "changed the assignment"
+msgstr "hat die Zuweisung geändert"
+
+msgid "changed the status"
+msgstr "hat den Status geändert"
+
+msgid "changed the priority"
+msgstr "hat die Priorität geändert"
+
+msgid "changed the category"
+msgstr "hat die Kategorie geändert"
+
+msgid "changed the requester"
+msgstr "hat den Anfragenden geändert"
+
+msgid "redacted a message"
+msgstr "hat eine Nachricht geschwärzt"
+
+msgid "resolved the ticket"
+msgstr "hat das Ticket gelöst"
+
+msgid "returned the ticket to In progress"
+msgstr "hat das Ticket wieder in Bearbeitung gesetzt"
+
+#, python-format
+msgid "%(ticket_id)s created."
+msgstr "%(ticket_id)s wurde erstellt."
+
+msgid "Ticket updated."
+msgstr "Ticket wurde aktualisiert."
+
+msgid "Reply added."
+msgstr "Antwort wurde hinzugefügt."
+
+msgid "Message redacted and recorded in history."
+msgstr "Nachricht wurde geschwärzt und im Verlauf protokolliert."
+
+#, python-format
+msgid "%(ticket_id)s permanently deleted."
+msgstr "%(ticket_id)s wurde dauerhaft gelöscht."
+
+msgid "Category created."
+msgstr "Kategorie wurde erstellt."
+
+msgid "Category updated."
+msgstr "Kategorie wurde aktualisiert."
+
+msgid "Category update was invalid."
+msgstr "Die Kategorieänderung war ungültig."
+
+msgid "Avatar must be 2 MB or smaller."
+msgstr "Der Avatar darf höchstens 2 MB groß sein."
+
+msgid "Avatar must be a PNG or JPEG image."
+msgstr "Der Avatar muss ein PNG- oder JPEG-Bild sein."
+
+msgid "Environment root cannot be demoted or deactivated."
+msgstr "Der Umgebungs-Root kann nicht herabgestuft oder deaktiviert werden."
+
+msgid "At least one active Administrator is required."
+msgstr "Mindestens ein aktiver Administrator ist erforderlich."
+
+msgid "This invitation does not match the signed-in account."
+msgstr "Diese Einladung gehört nicht zum angemeldeten Konto."
+
+msgid "This invitation is no longer valid."
+msgstr "Diese Einladung ist nicht mehr gültig."
+
+msgid "An account with this email already exists."
+msgstr "Ein Konto mit dieser E-Mail existiert bereits."
+
+msgid "All tickets"
+msgstr "Alle Tickets"
+
+msgid "Invalid email or password."
+msgstr "E-Mail oder Passwort ist ungültig."
+
+msgid "A user with this email already exists."
+msgstr "Ein Benutzer mit dieser E-Mail existiert bereits."
+
+msgid "Passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+msgid "Support Agent"
+msgstr "Support-Mitarbeiter"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Profile updated."
+msgstr "Profil wurde aktualisiert."
+
+msgid "If that active account exists, a reset link has been sent."
+msgstr ""
+"Falls dieses aktive Konto existiert, wurde ein Zurücksetzungslink gesendet."
+
+msgid "Password reset. You can now sign in."
+msgstr "Passwort wurde zurückgesetzt. Du kannst dich jetzt anmelden."
+
+msgid "Invitation accepted."
+msgstr "Einladung wurde angenommen."
+
+msgid "Account created. Welcome."
+msgstr "Konto wurde erstellt. Willkommen."
+
+msgid "Invitation sent."
+msgstr "Einladung wurde gesendet."
+
+msgid "User update was invalid."
+msgstr "Die Benutzeränderung war ungültig."
+
+#, python-format
+msgid "Updated %(email)s."
+msgstr "%(email)s wurde aktualisiert."
+
+msgid "Invitation resent with a new link."
+msgstr "Einladung wurde mit einem neuen Link erneut gesendet."
+
+msgid "Invitation revoked."
+msgstr "Einladung wurde widerrufen."

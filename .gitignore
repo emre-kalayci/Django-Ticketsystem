@@ -1,0 +1,4 @@
+.venv
+.env
+ticket_management.sqlite3
+__pycache__

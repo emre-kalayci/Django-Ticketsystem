@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "New ticket" %} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header"><div><a class="back-link" href="{% url 'ticket-list' %}">← {% translate "Tickets" %}</a><h1>{% translate "New ticket" %}</h1><p class="muted">{% translate "Describe the issue and include anything support needs to reproduce it." %}</p></div></header>
+    <section class="panel editor-panel"><form method="post"
+      enctype="multipart/form-data"
+      class="form-stack"
+      data-rich-form>{% csrf_token %}{% include "partials/form_errors.html" %}<label>{% translate "Subject" %}{{ form.subject }}</label>{{ form.subject.errors }}{% if form.requester %}<label>{% translate "Requester" %}{{ form.requester }}</label>{{ form.requester.errors }}{% endif %}<label>{% translate "Description" %}</label>{% include "partials/rich_editor.html" with field=form.description upload_ids_field=form.temporary_upload_ids %}<div class="form-grid"><label>{% translate "Category" %}{{ form.category }}</label><label>{% translate "Priority" %}{{ form.priority }}</label></div>{{ form.category.errors }}{{ form.priority.errors }}<label>{% translate "Attachments" %} <span class="muted">{% translate "PDF, PNG, JPEG, or TXT · max 10 MB each" %}</span>{{ form.attachments }}</label>{{ form.attachments.errors }}<div class="form-actions"><a class="button secondary" href="{% url 'ticket-list' %}">{% translate "Cancel" %}</a><button class="button primary" type="submit">{% translate "Create ticket" %}</button></div></form></section>
+{% endblock %}

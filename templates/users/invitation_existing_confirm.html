@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Accept invitation" %} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header"><div><p class="eyebrow">{% translate "Invitation" %}</p><h1>{% translate "Accept role invitation" %}</h1><p class="muted">{% blocktranslate with role=invitation.get_role_display %}Accept the invitation to continue as {{ role }}.{% endblocktranslate %}</p></div></header>
+    <section class="panel narrow-panel"><p>{% blocktranslate with email=invitation.email %}This invitation matches the signed-in account {{ email }}.{% endblocktranslate %}</p><form method="post" class="form-actions">{% csrf_token %}<a class="button secondary" href="{% url 'home' %}">{% translate "Cancel" %}</a><button class="button primary" type="submit">{% translate "Accept invitation" %}</button></form></section>
+{% endblock %}

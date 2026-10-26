@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Sign in" %} · Support Portal{% endblock %}
+{% block auth_content %}
+    <section class="auth-card">
+        <p class="eyebrow">{% translate "Support workspace" %}</p>
+        <h1>{% translate "Welcome back" %}</h1>
+        <p class="muted">{% translate "Sign in with your invited account." %}</p>
+        <form method="post" class="form-stack">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            {% include "partials/form_errors.html" %}
+            <label>{% translate "Email" %}{{ form.email }}</label>{{ form.email.errors }}
+            <label>{% translate "Password" %}{{ form.password }}</label>{{ form.password.errors }}
+            <button class="button primary" type="submit">{% translate "Sign in" %}</button>
+        </form>
+        <a class="quiet-link" href="{% url 'password-reset-request' %}">{% translate "Forgot password?" %}</a>
+    </section>
+{% endblock %}

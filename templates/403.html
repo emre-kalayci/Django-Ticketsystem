@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Access denied" %} · Support Portal{% endblock %}
+{% block content %}
+    <section class="panel narrow-panel error-page"><p class="eyebrow">403</p><h1>{% translate "Access denied" %}</h1><p class="muted">{% translate "You do not have permission to perform this action." %}</p><a class="button primary" href="{% url 'home' %}">{% translate "Return to tickets" %}</a></section>
+{% endblock %}

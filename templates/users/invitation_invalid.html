@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block auth_content %}
+    <section class="auth-card">
+        <h1>{% translate "Invitation unavailable" %}</h1>
+        <p class="muted">{% translate "This invitation is invalid, expired, revoked, or already used. Ask an Administrator for a new invitation." %}</p>
+        <a class="button secondary" href="{% url 'login' %}">{% translate "Go to sign in" %}</a>
+    </section>
+{% endblock %}

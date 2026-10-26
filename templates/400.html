@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Invalid request" %} · Support Portal{% endblock %}
+{% block content %}
+    <section class="panel narrow-panel error-page"><p class="eyebrow">400</p><h1>{% translate "Invalid request" %}</h1><p class="muted">{% translate "The request could not be processed. Check the submitted information and try again." %}</p><a class="button primary" href="{% url 'home' %}">{% translate "Return to tickets" %}</a></section>
+{% endblock %}

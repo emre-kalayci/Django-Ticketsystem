@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load ticket_tags i18n %}
+{% block title %}
+    {% if request.user.is_support %}{% translate "Tickets" %}{% else %}{% translate "My tickets" %}{% endif %} · Support Portal
+{% endblock %}
+{% block content %}
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">{% translate "Support portal" %}</p>
+            <h1>
+                {% if request.user.is_support %}
+                    {% translate "Tickets" %}
+                {% else %}
+                    {% translate "My tickets" %}
+                {% endif %}
+            </h1>
+            <p class="muted">
+                {% if request.user.is_support %}
+                    {% translate "Triage, assign, and resolve the global support queue." %}
+                {% else %}
+                    {% translate "Track requests and continue conversations with support." %}
+                {% endif %}
+            </p>
+        </div>
+        <a class="button primary" href="{% url 'ticket-create' %}">+ {% translate "New ticket" %}</a>
+    </header>
+    {% if request.user.is_support %}
+        <nav class="queue-tabs" aria-label="{% translate 'Ticket queues' %}">
+            <a class="{% if queue == 'all' %}active{% endif %}"
+               href="{% url 'ticket-list' %}?queue=all">{% translate "All" %}</a>
+            <a class="{% if queue == 'unassigned' %}active{% endif %}"
+               href="{% url 'ticket-list' %}?queue=unassigned">{% translate "Unassigned" %}</a>
+            <a class="{% if queue == 'mine' %}active{% endif %}"
+               href="{% url 'ticket-list' %}?queue=mine">{% translate "Assigned to me" %}</a>
+            <a class="{% if queue == 'waiting' %}active{% endif %}"
+               href="{% url 'ticket-list' %}?queue=waiting">{% translate "Waiting for requester" %}</a>
+            <a class="{% if queue == 'resolved' %}active{% endif %}"
+               href="{% url 'ticket-list' %}?queue=resolved">{% translate "Resolved" %}</a>
+        </nav>
+    {% endif %}
+    <section class="panel list-panel">
+        <form method="get" class="filter-bar" data-auto-submit>
+            <input type="hidden" name="queue" value="{{ queue }}">
+            <label class="search-grow">
+                <span class="sr-only">{% translate "Search tickets" %}</span>
+                <input name="q"
+                       value="{{ search }}"
+                       placeholder="{% translate 'Search ID, subject, or requester' %}">
+            </label>
+            <label>
+                <span class="sr-only">{% translate "Status" %}</span>
+                <select name="status">
+                    <option value="">{% translate "All statuses" %}</option>
+                    {% for value, label in ticket_status_choices %}
+                        <option value="{{ value }}"
+                                {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <span class="sr-only">{% translate "Priority" %}</span>
+                <select name="priority">
+                    <option value="">{% translate "All priorities" %}</option>
+                    {% for value, label in ticket_priority_choices %}
+                        <option value="{{ value }}"
+                                {% if selected_priority == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <span class="sr-only">{% translate "Category" %}</span>
+                <select name="category">
+                    <option value="">{% translate "All categories" %}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}"
+                                {% if selected_category == category.id|stringformat:'s' %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            {% if request.user.is_support %}
+                <label>
+                    <span class="sr-only">{% translate "Assignee" %}</span>
+                    <select name="assignee">
+                        <option value="">{% translate "All assignees" %}</option>
+                        {% for agent in agents %}
+                            <option value="{{ agent.id }}"
+                                    {% if selected_assignee == agent.id|stringformat:'s' %}selected{% endif %}>{{ agent.full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            {% endif %}
+            <label>
+                <span class="sr-only">{% translate "Sort" %}</span>
+                <select name="sort">
+                    <option value="updated"
+                            {% if selected_sort == 'updated' %}selected{% endif %}>{% translate "Recently updated" %}</option>
+                    <option value="newest" {% if selected_sort == 'newest' %}selected{% endif %}>{% translate "Newest" %}</option>
+                    <option value="oldest" {% if selected_sort == 'oldest' %}selected{% endif %}>{% translate "Oldest" %}</option>
+                    <option value="priority"
+                            {% if selected_sort == 'priority' %}selected{% endif %}>{% translate "Priority" %}</option>
+                </select>
+            </label>
+        </form>
+        <div class="ticket-table {% if request.user.is_support %}support-list{% endif %}"
+             aria-label="{% translate 'Tickets' %}">
+            <div class="ticket-row ticket-head">
+                <span>ID</span>
+                <span>{% translate "Subject" %}</span>
+                <span>{% translate "Status" %}</span>
+                <span>{% translate "Priority" %}</span>
+                {% if request.user.is_support %}
+                    <span>{% translate "Requester" %}</span>
+                {% endif %}
+                <span>{% translate "Assignee" %}</span>
+                <span>{% translate "Updated" %}</span>
+            </div>
+            {% for ticket in page_obj %}
+                <a class="ticket-row" href="{% url 'ticket-detail' ticket.number %}">
+                    <span class="ticket-id">{{ ticket.display_id }}</span>
+                    <span class="ticket-subject"><strong>{{ ticket.subject }}</strong><small>{{ ticket.category.name }}</small></span>
+                    <span><span class="status status-{{ ticket.status }}"><i></i>{{ ticket.get_status_display }}</span></span>
+                    <span><span class="priority priority-{{ ticket.priority }}"><i></i>{{ ticket.get_priority_display }}</span></span>
+                    {% if request.user.is_support %}
+                        <span class="person">
+                            {% if ticket.requester.avatar %}
+                                <img src="{% url 'avatar-file' ticket.requester.id %}" alt="">
+                            {% else %}
+                                <b class="avatar tiny">{{ ticket.requester|initials }}</b>
+                            {% endif %}
+                            {{ ticket.requester.full_name }}
+                        </span>
+                    {% endif %}
+                    <span>
+                        {% if ticket.assignee %}
+                            <span class="person">
+                                {% if ticket.assignee.avatar %}
+                                    <img src="{% url 'avatar-file' ticket.assignee.id %}" alt="">
+                                {% else %}
+                                    <b class="avatar tiny">{{ ticket.assignee|initials }}</b>
+                                {% endif %}
+                                {{ ticket.assignee.full_name }}
+                            </span>
+                        {% else %}
+                            <span class="muted">{% translate "Unassigned" %}</span>
+                        {% endif %}
+                    </span>
+                    <time datetime="{{ ticket.updated_at|date:'c' }}">{{ ticket.updated_at|timesince }} {% translate "ago" %}</time>
+                </a>
+            {% empty %}
+                <div class="empty-state">
+                    <span class="empty-icon">◎</span>
+                    <h2>{% translate "No tickets here" %}</h2>
+                    <p>{% translate "Try another queue/filter or create a new ticket." %}</p>
+                </div>
+            {% endfor %}
+        </div>
+        {% if page_obj.paginator.num_pages > 1 %}
+            <nav class="pagination" aria-label="{% translate 'Pagination' %}">
+                {% if page_obj.has_previous %}
+                    <a class="button secondary"
+                       href="?{% if page_query %}{{ page_query }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">{% translate "Previous" %}</a>
+                {% endif %}
+                <span>{% blocktranslate with current=page_obj.number total=page_obj.paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktranslate %}</span>
+                {% if page_obj.has_next %}
+                    <a class="button secondary"
+                       href="?{% if page_query %}{{ page_query }}&amp;{% endif %}page={{ page_obj.next_page_number }}">{% translate "Next" %}</a>
+                {% endif %}
+            </nav>
+        {% endif %}
+    </section>
+{% endblock %}

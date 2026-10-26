@@ -1,0 +1,74 @@
+{% load ticket_tags i18n %}
+{{ field }}
+{% if upload_ids_field %}{{ upload_ids_field }}{% endif %}
+<div class="rich-editor"
+     data-rich-editor
+     data-input-id="{{ field.id_for_label }}"
+     data-upload-input-id="{% if upload_ids_field %}{{ upload_ids_field.id_for_label }}{% endif %}"
+     data-upload-url="{% url 'temporary-upload-create' %}">
+    <div class="editor-toolbar"
+         role="toolbar"
+         aria-label="{% translate 'Rich text formatting' %}">
+        <button type="button"
+                data-command="formatBlock"
+                data-value="p"
+                aria-label="{% translate 'Paragraph' %}">¶</button>
+        <button type="button"
+                data-command="formatBlock"
+                data-value="h2"
+                aria-label="{% translate 'Heading' %}">H</button>
+        <button type="button" data-command="bold" aria-label="{% translate 'Bold' %}"><strong>B</strong></button>
+        <button type="button"
+                data-command="italic"
+                aria-label="{% translate 'Italic' %}"><em>I</em></button>
+        <button type="button"
+                data-command="createLink"
+                aria-label="{% translate 'Add link' %}">↗</button>
+        <button type="button"
+                data-command="insertUnorderedList"
+                aria-label="{% translate 'Bullet list' %}"
+                title="{% translate 'Bullet list' %}">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M8 6h13M8 12h13M8 18h13" />
+                <path d="M3 6h.01M3 12h.01M3 18h.01" />
+            </svg>
+        </button>
+        <button type="button"
+                data-command="insertOrderedList"
+                aria-label="{% translate 'Numbered list' %}"
+                title="{% translate 'Numbered list' %}">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M10 6h11M10 12h11M10 18h11M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
+            </svg>
+        </button>
+        <button type="button"
+                data-command="taskList"
+                aria-label="{% translate 'Task list' %}"
+                title="{% translate 'Task list' %}">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m3 7 2 2 4-4M11 6h10M3 13h6M11 12h10M3 19h6M11 18h10" />
+            </svg>
+        </button>
+        <span class="toolbar-spacer"></span>
+        <button type="button" data-command="undo" aria-label="{% translate 'Undo' %}">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m9 14-4-4 4-4" />
+                <path d="M5 10h11a4 4 0 0 1 0 8h-1" />
+            </svg>
+        </button>
+        <button type="button" data-command="redo" aria-label="{% translate 'Redo' %}">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m15 14 4-4-4-4" />
+                <path d="M19 10H8a4 4 0 0 0 0 8h1" />
+            </svg>
+        </button>
+    </div>
+    <div class="rich-editor-content"
+         contenteditable="true"
+         role="textbox"
+         aria-multiline="true"
+         aria-label="{{ field.label }}"
+         data-placeholder="{% translate 'Write here…' %}">{{ field.value|safe_rich_text }}</div>
+    <div class="upload-status" data-upload-status aria-live="polite"></div>
+</div>
+{% if field.errors %}<div class="field-error">{{ field.errors }}</div>{% endif %}

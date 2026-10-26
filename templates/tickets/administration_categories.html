@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Categories" %} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">{% translate "Administration" %}</p>
+            <h1>{% translate "Categories" %}</h1>
+            <p class="muted">{% translate "Keep ticket classification simple and useful." %}</p>
+        </div>
+        <a class="button secondary" href="{% url 'administration-users' %}">{% translate "Manage users" %}</a>
+    </header>
+    <section class="panel"><div class="section-heading"><h2>{% translate "New category" %}</h2></div><form method="post" class="inline-form">{% csrf_token %}{% include "partials/form_errors.html" %}<label>{% translate "Name" %}{{ form.name }}</label><label class="checkbox-label">{{ form.is_active }} {% translate "Active" %}</label><button class="button primary" type="submit">{% translate "Create" %}</button></form>{{ form.name.errors }}</section>
+    <section class="panel">
+        <div class="section-heading">
+            <h2>{% translate "All categories" %}</h2>
+        </div>
+        <div class="data-table">
+            <div class="table-row table-head"><span>{% translate "Name" %}</span><span>{% translate "Status" %}</span><span>{% translate "Action" %}</span></div>
+            {% for category in categories %}
+                <form method="post"
+                      action="{% url 'administration-category-update' category.id %}"
+                      class="table-row">
+                    {% csrf_token %}<span>
+                    <input name="name"
+                           value="{{ category.name }}"
+                           aria-label="{% translate 'Category name' %}">
+                    </span><span>
+                    <label class="checkbox-label">
+                        <input type="checkbox"
+                               name="is_active"
+                               {% if category.is_active %}checked{% endif %}>
+                        {% translate "Active" %}
+                    </label>
+                    </span><span>
+                    <button class="button small secondary" type="submit">{% translate "Save" %}</button>
+                    </span>
+                </form>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

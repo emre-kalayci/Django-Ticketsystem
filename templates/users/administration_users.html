@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Administration" %} · Support Portal{% endblock %}
+{% block content %}
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">{% translate "Administration" %}</p>
+            <h1>{% translate "Users" %}</h1>
+            <p class="muted">{% translate "Invite accounts, assign roles, and control access." %}</p>
+        </div>
+        <a class="button secondary" href="{% url 'administration-categories' %}">{% translate "Manage categories" %}</a>
+    </header>
+    <section class="panel"><div class="section-heading"><div><h2>{% translate "Invite user" %}</h2><p class="muted">{% translate "Invitation links expire after 7 days." %}</p></div></div><form method="post" class="inline-form">{% csrf_token %}{% include "partials/form_errors.html" %}<label>{% translate "Email" %}{{ invitation_form.email }}</label><label>{% translate "Role" %}{{ invitation_form.role }}</label><button class="button primary" type="submit">{% translate "Send invitation" %}</button></form>{{ invitation_form.email.errors }}{{ invitation_form.role.errors }}</section>
+    <section class="panel">
+        <div class="section-heading">
+            <h2>{% translate "Accounts" %}</h2>
+            <form method="get" class="search-form">
+                <label class="sr-only" for="user-search">{% translate "Search users" %}</label>
+                <input id="user-search"
+                       name="q"
+                       value="{{ search }}"
+                       placeholder="{% translate 'Search name or email' %}">
+                <button class="button secondary" type="submit">{% translate "Search" %}</button>
+            </form>
+        </div>
+        <div class="data-table users-table"><div class="table-row table-head"><span>{% translate "User" %}</span><span>{% translate "Role" %}</span><span>{% translate "Status" %}</span><span>{% translate "Joined" %}</span><span>{% translate "Action" %}</span></div>{% for user_item in users %}<form method="post"
+      action="{% url 'administration-user-update' user_item.id %}"
+      class="table-row">{% csrf_token %}<span><strong>{{ user_item.full_name }}</strong><small>{{ user_item.email }}</small></span><span><select name="role"
+        aria-label="{% translate 'Role for' %} {{ user_item.email }}">{% for value,label in user_item.Role.choices %}<option value="{{ value }}"
+        {% if user_item.role == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></span><span><label class="checkbox-label"><input type="checkbox"
+       name="is_active"
+       {% if user_item.is_active %}checked{% endif %}> {% translate "Active" %}</label></span><time>{{ user_item.date_joined|date:"M j, Y" }}</time><span><button class="button small secondary" type="submit">{% translate "Save" %}</button></span></form>{% empty %}<div class="empty-state">{% translate "No users match this search." %}</div>{% endfor %}</div></section>
+    <section class="panel"><div class="section-heading"><h2>{% translate "Pending invitations" %}</h2></div><div class="data-table"><div class="table-row table-head"><span>{% translate "Email" %}</span><span>{% translate "Role" %}</span><span>{% translate "Expires" %}</span><span>{% translate "Actions" %}</span></div>{% for invitation in pending_invitations %}<div class="table-row"><span>{{ invitation.email }}</span><span>{{ invitation.get_role_display }}</span><time>{{ invitation.expires_at|date:"M j, Y H:i" }}</time><span class="row-actions"><form method="post"
+      action="{% url 'administration-invitation-action' invitation.id 'resend' %}">{% csrf_token %}<button class="button small secondary" type="submit">{% translate "Resend" %}</button></form><form method="post"
+      action="{% url 'administration-invitation-action' invitation.id 'revoke' %}">{% csrf_token %}<button class="button small danger" type="submit">{% translate "Revoke" %}</button></form></span></div>{% empty %}<div class="empty-state">{% translate "No pending invitations." %}</div>{% endfor %}</div></section>
+{% endblock %}
