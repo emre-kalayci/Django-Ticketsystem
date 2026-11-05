@@ -1,10 +1,10 @@
-Django Ticketsystem 🎫
+# Django Ticketsystem 🎫
 
 Ein effizientes Ticketsystem, entwickelt mit Django.
 
 Hinweis: Dieses Repository dient in erster Linie als Portfolio-Projekt und Demonstration, um die Umsetzung einer funktionalen Webanwendung mit Rollenverwaltung und Datenbankanbindung zu veranschaulichen.
 
-Kernfunktionen
+# Kernfunktionen
 
 Rollenbasiertes System: Unterschiedliche Ansichten und Rechte für Administratoren, Support-Mitarbeiter und Endbenutzer.
 
@@ -14,7 +14,7 @@ Organisation: Strukturierte Kategorisierung der Tickets nach Status (z.B. Offen,
 
 Admin-Panel: Vollständige Verwaltung der Daten über das integrierte Django-Backend.
 
-Tech-Stack
+# Tech-Stack
 
 Backend: Python, Django
 
